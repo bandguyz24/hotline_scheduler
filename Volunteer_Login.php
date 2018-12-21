@@ -6,6 +6,8 @@
 //or go to Forgot_Password.php
 //or back to some sort of main page
 
+//the post sent to BeOfService.php is "UserName" : "PassWord"
+
 //I was just learning some php stuff but there is no particular reason why the html needs to be echoed here
 //echoing the html was useful for me later when using php data
 echo<<<END
@@ -31,6 +33,4 @@ maxlength = "32" pattern = "{8,32}">Must Be At Least 8 Characters</input> <br>
 </html>
 END;
  
- 
- // names passed to
 ?>
