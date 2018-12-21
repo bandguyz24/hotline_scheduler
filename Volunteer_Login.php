@@ -1,5 +1,6 @@
 <?php
 //Volunteer_Login.php
+//this is the entry point for the web application
 echo<<<END
 <html>
 <meta charset="UTF-8">
@@ -10,7 +11,7 @@ echo<<<END
 
 <div >
 <h2 style ="color:blue; "> VOLUNTEER LOGIN</h2>
-<a href = "http://contracostaaa.org/" > Back To CONTRACOSTAAA.ORG</a><br><br>
+<a href = "" > Back To Main Site</a><br><br> <!-- The href has been removed from this line put yours here -->
 <form action = "BeOfService.php" method = "post">
 User Name: <input type="text" style = "margin-left : 18px;" size="32" name= "UserName" id = "User_Name" placeholder="Bill W. 925-123-4567"></input>  <br>
 PASSWORD : <input  type="password" size="32" name = "PassWord" id = "Pass_word"
