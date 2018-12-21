@@ -1,6 +1,13 @@
 <?php
 //Volunteer_Login.php
 //this is the entry point for the web application
+//if they have a username and password then they will be taken to BeOfService.php
+//otherwise they create an account on New_Volunteer02.html
+//or go to Forgot_Password.php
+//or back to some sort of main page
+
+//I was just learning some php stuff but there is no particular reason why the html needs to be echoed here
+//echoing the html was useful for me later when using php data
 echo<<<END
 <html>
 <meta charset="UTF-8">
@@ -8,8 +15,7 @@ echo<<<END
 <head>
 </head>
 <body style="background-color : lightblue;"><h1 style = "margin-left:200px; color : blue;" >BE OF SERVICE</h1><br>
-
-<div >
+<div>
 <h2 style ="color:blue; "> VOLUNTEER LOGIN</h2>
 <a href = "" > Back To Main Site</a><br><br> <!-- The href has been removed from this line put yours here -->
 <form action = "BeOfService.php" method = "post">
