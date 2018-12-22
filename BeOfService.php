@@ -3,8 +3,12 @@
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+
+//if the post is empty redirect the user
 if (empty($_POST["UserName"]))
-   { header("Location: http://contracostaaa.org/cc-aa-test-empty/Volunteer_Login.php");
+	
+//the redirection url has been removed from the below line	
+   { header("Location: http://"); 
      exit;
    }
 ?>
@@ -12,19 +16,27 @@ if (empty($_POST["UserName"]))
 <HEAD>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
- <TITLE>Contra Costa Alcoholics Anonymous :  Be Of Service Main</TITLE>
+ <TITLE>The title of your website here</TITLE>
 </HEAD>
 <BODY style = "background-color:#EAFAF1;">
- <h1 style = "color:blue; text-align:center;"> Contra Costa Alcoholics Anonymous</h1>
+ <h1 style = "color:blue; text-align:center;"> Your Organization here</h1>
  <h2 style = "color:blue; text-align:center;">Note : if you just created your account today your access will be limited until the chair person verifies your account</h2>
   <h2 style = "color:blue; text-align:center;"> You will only be able to volunteer for hotline shifts...viewing the schedule and internal messaging will be disabled</h2>
+
 <?php
-  include 'DB_Connect.php';
-$dbname = 'CCAA0003';
+ 
+include 'DB_Connect.php';
+
+//the database schema name has been removed from the below line
+
+$dbname = '';
+//DB_Connect is a class that stores the database username, password,location
+//the connect to database function returns a mysqli object to the $conn variable
 $DB = new DB_Connect();
 $conn = $DB->Connect_To_Data_Base($dbname);
 $UserName = $_POST["UserName"];
 $PassWord = $_POST["PassWord"];
+
 
 $sql = "SELECT id FROM Login WHERE UserName = '{$UserName}' AND PassWord = '{$PassWord}'";
 $result = $conn->query($sql);
