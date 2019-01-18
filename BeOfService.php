@@ -1,4 +1,8 @@
 <?php 
+//the below header line stops the browser from caching the page
+//because the site requires a username and password
+//I use an internal back button on subsequent pages
+//also this ensures the most current database data is reflected
 
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -8,6 +12,7 @@ header("Pragma: no-cache");
 if (empty($_POST["UserName"]))
 	
 //the redirection url has been removed from the below line	
+//add your url for redirection
    { header("Location: http://"); 
      exit;
    }
@@ -15,11 +20,18 @@ if (empty($_POST["UserName"]))
 <HTML>
 <HEAD>
 <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width">
+<!-- the viewport meta below allows viewing on an android or iphone -->	
+<meta name="viewport" content="width=device-width">
  <TITLE>The title of your website here</TITLE>
 </HEAD>
 <BODY style = "background-color:#EAFAF1;">
  <h1 style = "color:blue; text-align:center;"> Your Organization here</h1>
+
+<!--there is an administrative feature on this site on Permissions.php page
+    when a user creates an account their permission will automatically set to [B]  
+    Blocked which limits which pages they can access someone with Administraive access has to
+    manually set their permission to [U]  this feature can be removed if desired-->
+	
  <h2 style = "color:blue; text-align:center;">Note : if you just created your account today your access will be limited until the chair person verifies your account</h2>
   <h2 style = "color:blue; text-align:center;"> You will only be able to volunteer for hotline shifts...viewing the schedule and internal messaging will be disabled</h2>
 
@@ -37,17 +49,38 @@ $conn = $DB->Connect_To_Data_Base($dbname);
 $UserName = $_POST["UserName"];
 $PassWord = $_POST["PassWord"];
 
-
+//the code below should be changed into a prepared statement to prevent injection
+//the connectsoion is currently open and here is the correct code
+/*
+$sql = "SELECT id FROM Login WHERE UserName = '{$UserName}' AND PassWord = '{$PassWord}'";
+if (!($stmnt = $conn->prepare($sql)))
+   {echo "Error connecting to database\n";}
+ else
+ {$stmnt->execute();
+   $result = $stmnt->get_result();
+  $stmnt->close();}
+  
+  //use this above commented out code instead of the 2 lines below
+*/
+// change the below 2 lines to a prepared statement	
 $sql = "SELECT id FROM Login WHERE UserName = '{$UserName}' AND PassWord = '{$PassWord}'";
 $result = $conn->query($sql);
-if ($result->num_rows === 0)
+
+ if ($result->num_rows === 0)
 { echo "INVALID PASSWORD {$UserName} <a href=\"Volunteer_Login.php\" >BACK TO LOGIN PAGE</a>" ;
 exit; }
 else  echo "you are logged in";
 
 $ID = $result->fetch_row();
+	
+//comment out the below line if you are not testing or do not need to see the user id
 echo  "<th> your user id = {$ID[0]} </th>";
+
+//close the result after finished	
 $result->close();
+
+//now display the users first and last name based on their id fetch
+//this should be changed into a prepared statement
 $sql = "SELECT FirstName, LastName FROM Volunteer WHERE id = '{$ID[0]}'";
 $result = $conn->query($sql);
 $FullName = $result->fetch_row();
